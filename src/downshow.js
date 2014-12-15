@@ -109,8 +109,11 @@
    */
   function getContent(node) {
     var text = '', atom;
+    if (node.nodeType == 8) {
+      return node.textContent;
+    }
     for (var i = 0; i<node.childNodes.length; i++) {
-      if (node.childNodes[i].nodeType === 1) {
+      if (node.childNodes[i].nodeType === 1 || node.childNodes[i].nodeType === 8) {
         atom = node.childNodes[i]._bfs_text;
       } else if (node.childNodes[i].nodeType === 3) {
         atom = node.childNodes[i].data;
@@ -129,7 +132,9 @@
    * Process a node in the DOM tree.
    * */
   function processNode(node) {
-    if (node.tagName === 'P' || node.tagName === 'DIV' || node.tagName === 'UL' || node.tagName === 'OL' || node.tagName === 'PRE')
+    if (node.nodeType === 8)
+      setContent(node, getContent(node), '<!--', '-->\n');
+    else if (node.tagName === 'P' || node.tagName === 'DIV' || node.tagName === 'UL' || node.tagName === 'OL' || node.tagName === 'PRE')
       setContent(node, getContent(node), '\n\n', '\n\n');
     else if (node.tagName === 'BR')
       setContent(node, '\n\n');
