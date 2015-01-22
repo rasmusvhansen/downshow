@@ -185,7 +185,7 @@
         if (node._bfs_parent.tagName === 'OL') 
           setContent(node, trim(prefixBlock('    ', list_content, true)), '1. ', '\n\n');
         else
-          setContent(node, trim(prefixBlock('    ', list_content, true)), '- ', '\n\n');
+          setContent(node, trim(prefixBlock('    ', list_content, true)), '* ', '\n\n');
       else
         setContent(node, '');
     } else 
